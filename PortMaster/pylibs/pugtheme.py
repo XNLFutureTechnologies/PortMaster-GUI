@@ -392,7 +392,7 @@ class ThemeDownloader(harbourmaster.source.GitHubRawReleaseV1):
         "prefix": "theme",
         "api": "GitHubRawReleaseV1",
         "name": "PortMaster Themes",
-        "url": "https://api.github.com/repos/PortsMaster/PortMaster-Themes/releases/latest",
+        "url": "https://api.github.com/repos/XNLFutureTechnologies/PortMaster-Themes/releases/latest",
         "last_checked": None,
         "version": 1,
         "data": {}

@@ -2,18 +2,11 @@
 #
 # SPDX-License-Identifier: MIT
 #
+# Modified for SystemR36 exclusive use
 
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 
-if [ -d "/opt/system/Tools/PortMaster/" ]; then
-  controlfolder="/opt/system/Tools/PortMaster"
-elif [ -d "/opt/tools/PortMaster/" ]; then
-  controlfolder="/opt/tools/PortMaster"
-elif [ -d "$XDG_DATA_HOME/PortMaster/" ]; then
-  controlfolder="$XDG_DATA_HOME/PortMaster"
-else
-  controlfolder="/roms/ports/PortMaster"
-fi
+controlfolder="/opt/system/Tools/PortMaster"
 
 source $controlfolder/control.txt
 
@@ -21,7 +14,6 @@ source $controlfolder/control.txt
 
 get_controls
 
-## TODO: Change to PortMaster/tty when Johnnyonflame merges the changes in,
 CUR_TTY=/dev/tty0
 
 cd "$controlfolder"

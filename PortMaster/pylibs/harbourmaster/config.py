@@ -34,9 +34,9 @@ HM_MAX_TEMP_SIZE = 1024 * 1024 * 100
 
 ################################################################################
 ## The following code is a simplification of the PortMaster toolsloc and whichsd code.
-HM_DEFAULT_PORTS_DIR   = Path("/roms/ports")
-HM_DEFAULT_SCRIPTS_DIR = Path("/roms/ports")
-HM_DEFAULT_TOOLS_DIR   = Path("/roms/ports")
+HM_DEFAULT_PORTS_DIR   = Path("/storager36/roms/ports")
+HM_DEFAULT_SCRIPTS_DIR = Path("/storager36/roms/ports")
+HM_DEFAULT_TOOLS_DIR   = Path("/storager36/roms/ports")
 
 if 'XDG_DATA_HOME' not in os.environ:
     os.environ['XDG_DATA_HOME'] = str(Path().home() / '.local' / 'share')
@@ -88,15 +88,9 @@ elif Path("/opt/muos").is_dir():
         HM_DEFAULT_SCRIPTS_DIR = Path("/mnt/sdcard/ROMS/Ports")
 
 elif Path("/opt/system/Tools").is_dir():
-    if Path("/roms2/tools").is_dir():
-        HM_DEFAULT_TOOLS_DIR   = Path("/roms2/tools")
-        HM_DEFAULT_PORTS_DIR   = Path("/roms2/ports")
-        HM_DEFAULT_SCRIPTS_DIR = Path("/roms2/ports")
-
-    else:
-        HM_DEFAULT_TOOLS_DIR   = Path("/roms/tools")
-        HM_DEFAULT_PORTS_DIR   = Path("/roms/ports")
-        HM_DEFAULT_SCRIPTS_DIR = Path("/roms/ports")
+    HM_DEFAULT_TOOLS_DIR   = Path("/storager36/roms/tools")
+    HM_DEFAULT_PORTS_DIR   = Path("/storager36/roms/ports")
+    HM_DEFAULT_SCRIPTS_DIR = Path("/storager36/roms/ports")
 
 elif Path("/opt/tools/PortMaster").is_dir():
     HM_DEFAULT_TOOLS_DIR   = Path("/opt/tools")

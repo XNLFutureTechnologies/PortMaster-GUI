@@ -666,29 +666,29 @@ class OptionScene(BaseScene):
             _("Update Ports"),
             description=_("Fetch latest ports information."))
 
-        self.tags['option_list'].add_option(
-            'update-portmaster',
-            _("Update PortMaster"),
-            description=_("Force check for a new PortMaster version."))
-
-        if self.gui.hm.device['name'] not in ('muOS', 'TrimUI'):
-            self.tags['option_list'].add_option(
-                'restore-portmaster',
-                _("Restore PortMaster"),
-                description=_("This will restore PortMaster to the latest stable version of PortMaster."))
-
-        self.tags['option_list'].add_option(
-            'release-channel',
-            _("Release Channel: {channel}").format(
-                channel=self.gui.hm.cfg_data.get('release_channel', "stable")),
-            description=_("Change release channel of PortMaster, either beta or stable."))
-
-        if self.gui.hm.cfg_data.get('konami', False):
-            if self.gui.hm.cfg_data.get('release_channel', 'stable') != 'alpha':
-                self.tags['option_list'].add_option(
-                    'release-alpha',
-                    _("Enable Alpha Releases"),
-                    description=_("Change release channel of PortMaster to alpha."))
+#        self.tags['option_list'].add_option(
+#            'update-portmaster',
+#            _("Update PortMaster"),
+#            description=_("Force check for a new PortMaster version."))
+#
+#        if self.gui.hm.device['name'] not in ('muOS', 'TrimUI'):
+#            self.tags['option_list'].add_option(
+#                'restore-portmaster',
+#                _("Restore PortMaster"),
+#                description=_("This will restore PortMaster to the latest stable version of PortMaster."))
+#
+#        self.tags['option_list'].add_option(
+#            'release-channel',
+#            _("Release Channel: {channel}").format(
+#                channel=self.gui.hm.cfg_data.get('release_channel', "stable")),
+#            description=_("Change release channel of PortMaster, either beta or stable."))
+#
+#        if self.gui.hm.cfg_data.get('konami', False):
+#            if self.gui.hm.cfg_data.get('release_channel', 'stable') != 'alpha':
+#                self.tags['option_list'].add_option(
+#                    'release-alpha',
+#                    _("Enable Alpha Releases"),
+#                    description=_("Change release channel of PortMaster to alpha."))
 
         if len(self.gui.hm.get_gcd_modes()) > 0:
             gcd_mode = self.gui.hm.get_gcd_mode()
@@ -805,74 +805,74 @@ class OptionScene(BaseScene):
                 self.tags['option_list'].list[item] = (
                     _("Debug Mode: ") + ((self.gui.hm.tools_dir / "PortMaster" / "debug_all_the_things_flag").is_file() and _("Enabled") or _("Disabled")))
 
-            if selected_option == 'restore-portmaster':
-                if not self.gui.message_box(
-                        _("Are you sure you want to restore PortMaster?\n\nThis will require you to run a specially crafted port that will be installed."),
-                        want_cancel=True):
-                    return True
-
-                logger.warning("-- RESTORE PORTMASTER --")
-                with self.gui.enable_cancellable(False), self.gui.enable_messages():
-                    if self.gui.hm.install_port("restore.portmaster.zip") != 0:
-                        return True
-
-                self.gui.message_box(
-                    _("A special port has been installed called \"Restore PortMaster.sh\"\n\nRun this port to restore your PortMaster installation."))
-
-                self.gui.message_box(
-                    _("PortMaster will now quit so you can run the restoration port."))
-
-                self.gui.events.running = False
-                return True
-
-            if selected_option == 'release-alpha':
-                if self.gui.message_box(
-                        _("Are you sure you want to change to the alpha release channel?\n\nPortMaster will upgrade or downgrade accordingly.\n\nTHIS CAN AND WILL BREAK STUFF, YOU HAVE BEEN WARNED"),
-                        want_cancel=True):
-
-                    self.gui.hm.cfg_data['release_channel'] = 'alpha'
-                    self.gui.hm.cfg_data['change_channel'] = True
-                    self.gui.hm.cfg_data['update_checked'] = None
-                    self.gui.hm.save_config()
-                    self.gui.events.running = False
-
-                    if not harbourmaster.HM_TESTING:
-                        reboot_file = (harbourmaster.HM_TOOLS_DIR / "PortMaster" / ".pugwash-reboot")
-                        if not reboot_file.is_file():
-                            reboot_file.touch(0o644)
-
-                return True
-
-            if selected_option == 'release-channel':
-                channel_change = {
-                    "alpha": "beta",
-                    "stable": "beta",
-                    "beta": "stable",
-                    }
-
-                current_channel = self.gui.hm.cfg_data.get('release_channel', "stable")
-                new_channel = channel_change[current_channel]
-
-                if self.gui.message_box(
-                        _("Are you sure you want to change the release channel from {current_channel} to {new_channel}?\n\nPortMaster will upgrade or downgrade accordingly.").format(
-                            current_channel=current_channel,
-                            new_channel=new_channel,
-                            ),
-                        want_cancel=True):
-
-                    self.gui.hm.cfg_data['release_channel'] = new_channel
-                    self.gui.hm.cfg_data['change_channel'] = True
-                    self.gui.hm.cfg_data['update_checked'] = None
-                    self.gui.hm.save_config()
-                    self.gui.events.running = False
-
-                    if not harbourmaster.HM_TESTING:
-                        reboot_file = (harbourmaster.HM_TOOLS_DIR / "PortMaster" / ".pugwash-reboot")
-                        if not reboot_file.is_file():
-                            reboot_file.touch(0o644)
-
-                return True
-
+#            if selected_option == 'restore-portmaster':
+#                if not self.gui.message_box(
+#                        _("Are you sure you want to restore PortMaster?\n\nThis will require you to run a specially crafted port that will be installed."),
+#                        want_cancel=True):
+#                    return True
+#
+#                logger.warning("-- RESTORE PORTMASTER --")
+#                with self.gui.enable_cancellable(False), self.gui.enable_messages():
+#                    if self.gui.hm.install_port("restore.portmaster.zip") != 0:
+#                        return True
+#
+#                self.gui.message_box(
+#                    _("A special port has been installed called \"Restore PortMaster.sh\"\n\nRun this port to restore your PortMaster installation."))
+#
+#                self.gui.message_box(
+#                    _("PortMaster will now quit so you can run the restoration port."))
+#
+#                self.gui.events.running = False
+#                return True
+#
+#            if selected_option == 'release-alpha':
+#                if self.gui.message_box(
+#                        _("Are you sure you want to change to the alpha release channel?\n\nPortMaster will upgrade or downgrade accordingly.\n\nTHIS CAN AND WILL BREAK STUFF, YOU HAVE BEEN WARNED"),
+#                        want_cancel=True):
+#
+#                    self.gui.hm.cfg_data['release_channel'] = 'alpha'
+#                    self.gui.hm.cfg_data['change_channel'] = True
+#                    self.gui.hm.cfg_data['update_checked'] = None
+#                    self.gui.hm.save_config()
+#                    self.gui.events.running = False
+#
+#                    if not harbourmaster.HM_TESTING:
+#                        reboot_file = (harbourmaster.HM_TOOLS_DIR / "PortMaster" / ".pugwash-reboot")
+#                        if not reboot_file.is_file():
+#                            reboot_file.touch(0o644)
+#
+#                return True
+#
+#            if selected_option == 'release-channel':
+#                channel_change = {
+#                    "alpha": "beta",
+#                    "stable": "beta",
+#                    "beta": "stable",
+#                    }
+#
+#                current_channel = self.gui.hm.cfg_data.get('release_channel', "stable")
+#                new_channel = channel_change[current_channel]
+#
+#                if self.gui.message_box(
+#                        _("Are you sure you want to change the release channel from {current_channel} to {new_channel}?\n\nPortMaster will upgrade or downgrade accordingly.").format(
+#                            current_channel=current_channel,
+#                            new_channel=new_channel,
+#                            ),
+#                        want_cancel=True):
+#
+#                    self.gui.hm.cfg_data['release_channel'] = new_channel
+#                    self.gui.hm.cfg_data['change_channel'] = True
+#                    self.gui.hm.cfg_data['update_checked'] = None
+#                    self.gui.hm.save_config()
+#                    self.gui.events.running = False
+#
+#                    if not harbourmaster.HM_TESTING:
+#                        reboot_file = (harbourmaster.HM_TOOLS_DIR / "PortMaster" / ".pugwash-reboot")
+#                        if not reboot_file.is_file():
+#                            reboot_file.touch(0o644)
+#
+#                return True
+#
             if selected_option == 'toggle-music':
                 self.gui.hm.cfg_data['music-disabled'] = self.gui.sounds.music_is_disabled = not self.gui.sounds.music_is_disabled
                 self.gui.hm.save_config()
